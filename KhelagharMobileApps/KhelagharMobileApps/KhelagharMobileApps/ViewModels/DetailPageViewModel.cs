@@ -18,6 +18,7 @@ namespace KhelagharMobileApps.ViewModels
     private AsarInfo _selectedAsar;
     private Position _position = null;
     private string _geoLocation = String.Empty;
+    private bool _hasGeoLocation = false;
     private string _committeeType = String.Empty;
     public DelegateCommand CallCommand { get; set; }
     public DelegateCommand NavigateTo { get; set; }
@@ -32,6 +33,14 @@ namespace KhelagharMobileApps.ViewModels
       get { return _geoLocation; }
       set { SetProperty(ref _geoLocation, value); }
     }
+    public bool HasGeoLocation
+    {
+      get
+      {
+        return _hasGeoLocation;
+      }
+      set { SetProperty(ref _hasGeoLocation, value); }
+    }
     public DetailPageViewModel()
     {
       CallCommand = new DelegateCommand(MakeACall);
@@ -42,7 +51,13 @@ namespace KhelagharMobileApps.ViewModels
     private void UpdateLocation()
     {
       int id = _selectedAsar.AsarId;
-
+      if (_position != null)
+      {
+        _selectedAsar.Latitude = Convert.ToDecimal(_position.Latitude);
+        _selectedAsar.Longitude = Convert.ToDecimal(_position.Longitude);
+        GeoLocation = _selectedAsar.GeoLocation;
+        HasGeoLocation = _selectedAsar.HasGeoLocation;
+      }
     }
 
     private async void MakeACall()
@@ -91,13 +106,13 @@ namespace KhelagharMobileApps.ViewModels
     public void OnNavigatedTo(NavigationParameters parameters)
     {
       SelectedAsar = parameters["show"] as AsarInfo;
+      GeoLocation = _selectedAsar.GeoLocation;
+      HasGeoLocation = _selectedAsar.HasGeoLocation;
     }
     public async void OnNavigatingTo(NavigationParameters parameters)
     {
       LocationFinder finder = new LocationFinder();
       _position = await finder.GetCurrentLocation();
-      if (_position != null)
-        GeoLocation = "Lat-" + _position.Latitude + ", Lon-" + _position.Longitude;
     }
   }
 }

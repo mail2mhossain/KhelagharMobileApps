@@ -25,6 +25,22 @@ namespace KhelagharMobileApps.Core.Models
     public decimal Latitude { get; set; }
     public decimal Longitude { get; set; }
     
+    public string GeoLocation
+    {
+      get
+      {
+        return "Latitude - " + Latitude + ", Longitude - " + Longitude;
+      }
+    }
+    public bool HasGeoLocation
+    {
+      get
+      {
+        if (Latitude == 0 && Longitude == 0)
+          return false;
+        return true;
+      }
+    }
     public string Address
     {
       get
