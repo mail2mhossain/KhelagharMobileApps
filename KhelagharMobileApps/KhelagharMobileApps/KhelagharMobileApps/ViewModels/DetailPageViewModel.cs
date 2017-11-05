@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using KhelagharMobileApps.Core.Models;
 using KhelagharMobileApps.Core.Services;
+using Plugin.Connectivity;
 using Plugin.ExternalMaps;
 using Plugin.Geolocator.Abstractions;
 using Plugin.Messaging;
@@ -10,6 +11,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KhelagharMobileApps.ViewModels
 {
@@ -19,6 +21,7 @@ namespace KhelagharMobileApps.ViewModels
     private Position _position = null;
     private string _geoLocation = String.Empty;
     private bool _hasGeoLocation = false;
+    private bool _canNavigate = true;
     private string _committeeType = String.Empty;
     public DelegateCommand CallCommand { get; set; }
     public DelegateCommand NavigateTo { get; set; }
@@ -41,6 +44,24 @@ namespace KhelagharMobileApps.ViewModels
       }
       set { SetProperty(ref _hasGeoLocation, value); }
     }
+    public bool CanNavigate
+    {
+      get { return _canNavigate;}
+      set { SetProperty(ref _canNavigate, value); }
+    }
+    private bool SetNavigationBool()
+    {
+      if (!HasGeoLocation) return false;
+      if (HasGeoLocation && _position != null)
+      {
+        if (_selectedAsar.Latitude == Convert.ToDecimal(_position.Latitude)
+          && _selectedAsar.Longitude == Convert.ToDecimal(_position.Longitude))
+        {
+          return false;
+        }
+      }
+      return true;
+    }
     public DetailPageViewModel()
     {
       CallCommand = new DelegateCommand(MakeACall);
@@ -48,15 +69,25 @@ namespace KhelagharMobileApps.ViewModels
       UpdateLocationCommand = new DelegateCommand(UpdateLocation);
     }
 
-    private void UpdateLocation()
+    private async void UpdateLocation()
     {
-      int id = _selectedAsar.AsarId;
       if (_position != null)
       {
         _selectedAsar.Latitude = Convert.ToDecimal(_position.Latitude);
         _selectedAsar.Longitude = Convert.ToDecimal(_position.Longitude);
-        GeoLocation = _selectedAsar.GeoLocation;
-        HasGeoLocation = _selectedAsar.HasGeoLocation;
+        
+        GeoLocationUpdateService service = new GeoLocationUpdateService();
+        await service.UpdateGeoLocation(_selectedAsar.AsarId, _selectedAsar.Latitude, _selectedAsar.Longitude);
+        if(service.IsSuccess)
+        {
+          GeoLocation = _selectedAsar.GeoLocation;
+          HasGeoLocation = _selectedAsar.HasGeoLocation;
+          CanNavigate = SetNavigationBool();
+        }
+        else
+        {
+          await UserDialogs.Instance.AlertAsync("Failed to update. Try again");
+        }
       }
     }
 
@@ -97,8 +128,8 @@ namespace KhelagharMobileApps.ViewModels
     }
     private void NavigateToMap()
     {
-      if(_position !=null)
-        CrossExternalMaps.Current.NavigateTo("AplombTech", _position.Latitude + 1, _position.Longitude);
+      if(CrossConnectivity.Current.IsConnected && _position != null)
+        CrossExternalMaps.Current.NavigateTo("AplombTech", Convert.ToDouble(_selectedAsar.Latitude), Convert.ToDouble(_selectedAsar.Longitude));
     }
     public void OnNavigatedFrom(NavigationParameters parameters)
     {
@@ -108,11 +139,15 @@ namespace KhelagharMobileApps.ViewModels
       SelectedAsar = parameters["show"] as AsarInfo;
       GeoLocation = _selectedAsar.GeoLocation;
       HasGeoLocation = _selectedAsar.HasGeoLocation;
+      CanNavigate = SetNavigationBool();
     }
     public async void OnNavigatingTo(NavigationParameters parameters)
     {
-      LocationFinder finder = new LocationFinder();
-      _position = await finder.GetCurrentLocation();
+      if (CrossConnectivity.Current.IsConnected)
+      {
+        LocationFinder finder = new LocationFinder();
+        _position = await finder.GetCurrentLocation();
+      }
     }
   }
 }

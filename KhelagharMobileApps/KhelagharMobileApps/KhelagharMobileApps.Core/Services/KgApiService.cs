@@ -11,7 +11,6 @@ namespace KhelagharMobileApps.Core.Services
   {
     public KgApiService()
     {
-      _baseUrl = "http://appsapi.khelaghar.net/";
     }
     public async Task<List<AsarInfo>> GetAsars(string name)
     {

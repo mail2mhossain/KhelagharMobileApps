@@ -44,7 +44,7 @@
             <Button Margin="10,0"  Command="{Binding UpdateLocationCommand}" IsVisible="{Binding Path= !HasGeoLocation}"
                         Text="Update Location" FontSize="10" WidthRequest = "120" HeightRequest = "35"
                         HorizontalOptions="End"/>
-            <Button Margin="10,0"  Command="{Binding NavigateTo}" IsVisible="{Binding Path= HasGeoLocation}"
+            <Button Margin="10,0"  Command="{Binding NavigateTo}" IsVisible="{Binding Path= CanNavigate}"
                         Text="Navigate To" FontSize="10" WidthRequest = "90" HeightRequest = "35"
                         HorizontalOptions="End"/>
         </StackLayout>

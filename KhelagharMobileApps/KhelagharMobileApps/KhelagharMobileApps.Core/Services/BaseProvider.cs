@@ -10,11 +10,9 @@ namespace KhelagharMobileApps.Core.Services
 {
   public class BaseProvider
   {
-    protected string _baseUrl;
-
     protected HttpClient GetClient()
     {
-      return GetClient(_baseUrl);
+      return GetClient(ApiUrl.BaseUrl);
     }
     protected virtual HttpClient GetClient(string baseUrl)
     {
