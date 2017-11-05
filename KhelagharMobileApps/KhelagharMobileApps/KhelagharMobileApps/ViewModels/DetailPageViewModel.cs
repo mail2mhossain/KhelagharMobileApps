@@ -126,10 +126,12 @@ namespace KhelagharMobileApps.ViewModels
       //  emailMessenger.SendEmail(email);
       //}
     }
-    private void NavigateToMap()
+    private async void NavigateToMap()
     {
       if(CrossConnectivity.Current.IsConnected && HasGeoLocation)
-        CrossExternalMaps.Current.NavigateTo("AplombTech", Convert.ToDouble(_selectedAsar.Latitude), Convert.ToDouble(_selectedAsar.Longitude));
+        await CrossExternalMaps.Current.NavigateTo("AplombTech", Convert.ToDouble(_selectedAsar.Latitude), Convert.ToDouble(_selectedAsar.Longitude));
+      else
+        await UserDialogs.Instance.AlertAsync("ইনটারনেট সংযোগ নাই। ইন্টারনেট সংযোগ দিন।");
     }
     public void OnNavigatedFrom(NavigationParameters parameters)
     {
