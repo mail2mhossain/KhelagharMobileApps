@@ -128,7 +128,7 @@ namespace KhelagharMobileApps.ViewModels
     }
     private void NavigateToMap()
     {
-      if(CrossConnectivity.Current.IsConnected && _position != null)
+      if(CrossConnectivity.Current.IsConnected && HasGeoLocation)
         CrossExternalMaps.Current.NavigateTo("AplombTech", Convert.ToDouble(_selectedAsar.Latitude), Convert.ToDouble(_selectedAsar.Longitude));
     }
     public void OnNavigatedFrom(NavigationParameters parameters)
