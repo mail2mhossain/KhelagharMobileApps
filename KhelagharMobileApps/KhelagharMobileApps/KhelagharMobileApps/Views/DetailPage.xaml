@@ -50,9 +50,8 @@
                         Text="Navigate To" FontSize="10" WidthRequest = "90" HeightRequest = "35"
                         HorizontalOptions="End"/>
         </StackLayout>
-        <StackLayout VerticalOptions="StartAndExpand" Padding="30">
-            <local:BindableMap   WidthRequest="320" HeightRequest="200" 
-                             MapType="Street" 
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10">
+            <local:BindableMap   MapType="Street" 
                              MapPosition="{Binding MyPosition}" 
                              MapPins="{Binding PinCollection}" 
          />
