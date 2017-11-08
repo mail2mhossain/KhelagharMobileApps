@@ -25,7 +25,7 @@ namespace KhelagharMobileApps.ViewModels
     private bool _hasGeoLocation = false;
     private bool _canNavigate = true;
     private string _committeeType = String.Empty;
-    private Xamarin.Forms.Maps.Position _myPosition = new Xamarin.Forms.Maps.Position(48.859217, 2.293914);
+    private Xamarin.Forms.Maps.Position _myPosition = new Xamarin.Forms.Maps.Position(23.8103, 90.4125);
     private ObservableCollection<Pin> _pinCollection = new ObservableCollection<Pin>();
 
     public DelegateCommand CallCommand { get; set; }
@@ -158,7 +158,7 @@ namespace KhelagharMobileApps.ViewModels
       GeoLocation = _selectedAsar.GeoLocation;
       HasGeoLocation = _selectedAsar.HasGeoLocation;
       CanNavigate = SetNavigationBool();
-      if (_selectedAsar != null)
+      if (_selectedAsar != null && HasGeoLocation)
       {
         UpdateMap(Convert.ToDouble(_selectedAsar.Latitude), Convert.ToDouble(_selectedAsar.Longitude));
       }
@@ -174,6 +174,7 @@ namespace KhelagharMobileApps.ViewModels
 
     private void UpdateMap(double latitude, double longitude)
     {
+      PinCollection.Clear();
       MyPosition = new Xamarin.Forms.Maps.Position(latitude, longitude);
       PinCollection.Add(new Pin() { Position = MyPosition, Type = PinType.Generic, Label = _selectedAsar.AsarName });
     }
