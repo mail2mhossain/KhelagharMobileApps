@@ -10,22 +10,45 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms.Maps;
 
 namespace KhelagharMobileApps.ViewModels
 {
   public class DetailPageViewModel : BindableBase, INavigationAware
   {
     private AsarInfo _selectedAsar;
-    private Position _position = null;
+    private Plugin.Geolocator.Abstractions.Position _position = null;
     private string _geoLocation = String.Empty;
     private bool _hasGeoLocation = false;
     private bool _canNavigate = true;
     private string _committeeType = String.Empty;
+    private Xamarin.Forms.Maps.Position _myPosition = new Xamarin.Forms.Maps.Position(48.859217, 2.293914);
+    private ObservableCollection<Pin> _pinCollection = new ObservableCollection<Pin>();
+
     public DelegateCommand CallCommand { get; set; }
     public DelegateCommand NavigateTo { get; set; }
     public DelegateCommand UpdateLocationCommand { get; set; }
+
+    public DetailPageViewModel()
+    {
+      CallCommand = new DelegateCommand(MakeACall);
+      NavigateTo = new DelegateCommand(NavigateToMap);
+      UpdateLocationCommand = new DelegateCommand(UpdateLocation);
+    }
+
+    public Xamarin.Forms.Maps.Position MyPosition
+    {
+      get { return _myPosition; }
+      set { SetProperty(ref _myPosition, value); }
+    }
+    public ObservableCollection<Pin> PinCollection
+    {
+      get { return _pinCollection; }
+      set { SetProperty(ref _pinCollection, value); }
+    }
     public AsarInfo SelectedAsar
     {
       get { return _selectedAsar; }
@@ -62,13 +85,6 @@ namespace KhelagharMobileApps.ViewModels
       }
       return true;
     }
-    public DetailPageViewModel()
-    {
-      CallCommand = new DelegateCommand(MakeACall);
-      NavigateTo = new DelegateCommand(NavigateToMap);
-      UpdateLocationCommand = new DelegateCommand(UpdateLocation);
-    }
-
     private async void UpdateLocation()
     {
       if (_position != null)
@@ -83,6 +99,7 @@ namespace KhelagharMobileApps.ViewModels
           GeoLocation = _selectedAsar.GeoLocation;
           HasGeoLocation = _selectedAsar.HasGeoLocation;
           CanNavigate = SetNavigationBool();
+          UpdateMap(_position.Latitude, _position.Longitude);
         }
         else
         {
@@ -90,7 +107,6 @@ namespace KhelagharMobileApps.ViewModels
         }
       }
     }
-
     private async void MakeACall()
     {
       // Make Phone Call
@@ -142,6 +158,10 @@ namespace KhelagharMobileApps.ViewModels
       GeoLocation = _selectedAsar.GeoLocation;
       HasGeoLocation = _selectedAsar.HasGeoLocation;
       CanNavigate = SetNavigationBool();
+      if (_selectedAsar != null)
+      {
+        UpdateMap(Convert.ToDouble(_selectedAsar.Latitude), Convert.ToDouble(_selectedAsar.Longitude));
+      }
     }
     public async void OnNavigatingTo(NavigationParameters parameters)
     {
@@ -150,6 +170,12 @@ namespace KhelagharMobileApps.ViewModels
         LocationFinder finder = new LocationFinder();
         _position = await finder.GetCurrentLocation();
       }
+    }
+
+    private void UpdateMap(double latitude, double longitude)
+    {
+      MyPosition = new Xamarin.Forms.Maps.Position(latitude, longitude);
+      PinCollection.Add(new Pin() { Position = MyPosition, Type = PinType.Generic, Label = _selectedAsar.AsarName });
     }
   }
 }

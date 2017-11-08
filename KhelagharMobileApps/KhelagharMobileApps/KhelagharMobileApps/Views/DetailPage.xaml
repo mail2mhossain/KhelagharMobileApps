@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:local="clr-namespace:KhelagharMobileApps.CustomControls" 
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="KhelagharMobileApps.Views.DetailPage"
              Title="{Binding Path=SelectedAsar.AsarName}">
@@ -47,6 +49,13 @@
             <Button Margin="10,0"  Command="{Binding NavigateTo}" IsVisible="{Binding Path= CanNavigate}"
                         Text="Navigate To" FontSize="10" WidthRequest = "90" HeightRequest = "35"
                         HorizontalOptions="End"/>
+        </StackLayout>
+        <StackLayout VerticalOptions="StartAndExpand" Padding="30">
+            <local:BindableMap   WidthRequest="320" HeightRequest="200" 
+                             MapType="Street" 
+                             MapPosition="{Binding MyPosition}" 
+                             MapPins="{Binding PinCollection}" 
+         />
         </StackLayout>
     </StackLayout>
 </ContentPage>
