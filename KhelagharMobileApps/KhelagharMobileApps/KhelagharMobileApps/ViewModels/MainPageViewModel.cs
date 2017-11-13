@@ -16,6 +16,8 @@ namespace KhelagharMobileApps.ViewModels
 {
   public class MainPageViewModel : BindableBase, INavigationAware
   {
+    private bool _isAcrivityIndicatorVisible = false;
+    private bool _isAcrivityIndicatorRunning = false;
     private string _textToSearch = "";
     private IList<string> _searchOptions = new List<string>();
     private string _selectedOption = String.Empty;
@@ -54,9 +56,13 @@ namespace KhelagharMobileApps.ViewModels
         await UserDialogs.Instance.AlertAsync("কিছু টাইপ করুন।");
         return;
       }
+      this.IsActivitiIndicatorVisible = true;
+      this.IsActivitiIndicatorRunning = true;
       IList<AsarInfo> asars = await _apiService.GetAsars(queryUrl + _textToSearch); //_textToSearch   "আনন্দ"
       Asars = new ObservableCollection<AsarInfo>(asars);
       AsarCount = asars.Count;
+      this.IsActivitiIndicatorVisible = false;
+      this.IsActivitiIndicatorRunning = false;
     }
     public DelegateCommand<ItemTappedEventArgs> GoToDetailPage
     {
@@ -98,6 +104,16 @@ namespace KhelagharMobileApps.ViewModels
     {
       get { return _asarCount; }
       set { SetProperty(ref _asarCount, value); }
+    }
+    public bool IsActivitiIndicatorVisible
+    {
+      get { return _isAcrivityIndicatorVisible; }
+      set { SetProperty(ref _isAcrivityIndicatorVisible, value); }
+    }
+    public bool IsActivitiIndicatorRunning
+    {
+      get { return _isAcrivityIndicatorRunning; }
+      set { SetProperty(ref _isAcrivityIndicatorRunning, value); }
     }
     public void OnNavigatedFrom(NavigationParameters parameters)
     {
