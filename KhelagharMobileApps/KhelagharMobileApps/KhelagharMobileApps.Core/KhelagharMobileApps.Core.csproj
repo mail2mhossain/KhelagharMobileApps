@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="ApiUrl.cs" />
     <Compile Include="Exceptions\KGAppsApiException.cs" />
+    <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Models\AsarInfo.cs" />
     <Compile Include="Models\AsarSearchOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Services\IKgApiService.cs" />
     <Compile Include="Services\KgApiService.cs" />
     <Compile Include="Services\LocationFinder.cs" />
+    <Compile Include="Services\LoginService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
