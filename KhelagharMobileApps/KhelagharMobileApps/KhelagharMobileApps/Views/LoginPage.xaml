@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="KhelagharMobileApps.Views.LoginPage"
-             Title="Login">
+             Title="{Binding Title}"
+             x:Class="KhelagharMobileApps.Views.LoginPage">
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="20"
-                     VerticalOptions="Center">
-            <Entry Placeholder="User Name"
-                   Text="{Binding UserName}"/>
-            <Entry Placeholder="Password"
-                   Text="{Binding Password}"
-                   IsPassword="True"/>
-            <Button Text="Login" TextColor="White"
-                    BackgroundColor="#77D065"
-                    Command="{Binding LoginCommand}"/>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <Image Source="icon.png" WidthRequest="200" HeightRequest="200" />
+            <ActivityIndicator IsVisible="{Binding Path= IsActivitiIndicatorVisible}" 
+                           IsRunning="{Binding Path= IsActivitiIndicatorRunning}" />
+            <StackLayout VerticalOptions="FillAndExpand">
+                <Entry Margin="40,10" Text="{Binding UserName}" Placeholder="Enter the username" VerticalOptions="EndAndExpand" />
+                <Entry Margin="40,10" Text="{Binding Password}" IsPassword="true" Placeholder="Did you read the code???" VerticalOptions="StartAndExpand" />
+            
+                <Button Margin="40,10" Text="Submit" Command="{Binding LoginCommand}" VerticalOptions="StartAndExpand"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

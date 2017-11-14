@@ -18,6 +18,7 @@ namespace KhelagharMobileApps.ViewModels
   {
     private bool _isAcrivityIndicatorVisible = false;
     private bool _isAcrivityIndicatorRunning = false;
+    private bool _isAsarCountVisible = false;
     private string _textToSearch = "";
     private IList<string> _searchOptions = new List<string>();
     private string _selectedOption = String.Empty;
@@ -56,11 +57,13 @@ namespace KhelagharMobileApps.ViewModels
         await UserDialogs.Instance.AlertAsync("কিছু টাইপ করুন।");
         return;
       }
+      IsAsarCountVisible = false;
       this.IsActivitiIndicatorVisible = true;
       this.IsActivitiIndicatorRunning = true;
       IList<AsarInfo> asars = await _apiService.GetAsars(queryUrl + _textToSearch); //_textToSearch   "আনন্দ"
       Asars = new ObservableCollection<AsarInfo>(asars);
       AsarCount = asars.Count;
+      IsAsarCountVisible = true;
       this.IsActivitiIndicatorVisible = false;
       this.IsActivitiIndicatorRunning = false;
     }
@@ -104,6 +107,11 @@ namespace KhelagharMobileApps.ViewModels
     {
       get { return _asarCount; }
       set { SetProperty(ref _asarCount, value); }
+    }
+    public bool IsAsarCountVisible
+    {
+      get { return _isAsarCountVisible; }
+      set { SetProperty(ref _isAsarCountVisible, value); }
     }
     public bool IsActivitiIndicatorVisible
     {
