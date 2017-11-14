@@ -22,7 +22,9 @@
       </StackLayout>
       <ActivityIndicator IsVisible="{Binding Path= IsActivitiIndicatorVisible}" 
                            IsRunning="{Binding Path= IsActivitiIndicatorRunning}" />
-      <Label Margin="20,0" Text="{Binding AsarCount, StringFormat='{0} টি আসর'}"/>
+      <Label Margin="20,0" Text="{Binding AsarCount, 
+          StringFormat='{0} টি আসর'}"
+             />
       <ListView Margin="20,0" ItemsSource="{Binding Path=Asars}"
               CachingStrategy="RecycleElement" RowHeight="75">
             <ListView.ItemTemplate>
