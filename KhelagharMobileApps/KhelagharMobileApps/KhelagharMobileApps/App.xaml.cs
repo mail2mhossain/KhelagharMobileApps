@@ -22,6 +22,7 @@ namespace KhelagharMobileApps
     protected override void RegisterTypes()
     {
       Container.RegisterTypeForNavigation<NavigationPage>();
+      Container.RegisterTypeForNavigation<MasterPage>();
       Container.RegisterTypeForNavigation<MainPage>();
       Container.RegisterTypeForNavigation<LoginPage>("Login");
       Container.RegisterTypeForNavigation<DetailPage>();

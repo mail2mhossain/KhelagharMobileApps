@@ -12,9 +12,9 @@
                            IsRunning="{Binding Path= IsActivitiIndicatorRunning}" />
             <StackLayout VerticalOptions="FillAndExpand">
                 <Entry Margin="40,10" Text="{Binding UserName}" Placeholder="Enter the username" VerticalOptions="EndAndExpand" />
-                <Entry Margin="40,10" Text="{Binding Password}" IsPassword="true" Placeholder="Did you read the code???" VerticalOptions="StartAndExpand" />
+                <Entry Margin="40,10" Text="{Binding Password}" IsPassword="true" Placeholder="Enter the Password" VerticalOptions="StartAndExpand" />
             
-                <Button Margin="40,10" Text="Submit" Command="{Binding LoginCommand}" VerticalOptions="StartAndExpand"/>
+                <Button Margin="40,10" Text="Login" Command="{Binding LoginCommand}" VerticalOptions="StartAndExpand"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

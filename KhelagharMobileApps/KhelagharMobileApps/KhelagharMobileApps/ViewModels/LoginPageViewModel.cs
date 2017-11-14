@@ -72,7 +72,8 @@ namespace KhelagharMobileApps.ViewModels
         //NavigationParameters param = new NavigationParameters();
         //param.Add("message", "Glad you read the code");
         //await NavigationService.NavigateAsync("ViewA", param);
-        await NavigationService.NavigateAsync("/MainPage");
+        //await NavigationService.NavigateAsync("/MainPage");
+        await NavigationService.NavigateAsync("/MasterPage/NavigationPage/MainPage");
         //await NavigationService.NavigateAsync("/MainPage/NavigationPage/ViewA?message=Glad%20you%20read%20the%20code");
       }
       else
