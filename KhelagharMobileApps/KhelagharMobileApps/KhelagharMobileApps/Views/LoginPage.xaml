@@ -5,7 +5,9 @@
              x:Class="KhelagharMobileApps.Views.LoginPage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand">
-            <Image Source="icon.png" WidthRequest="200" HeightRequest="200" />
+            <StackLayout VerticalOptions="FillAndExpand">
+                <Image Source="icon.png" WidthRequest="200" HeightRequest="200" />
+            </StackLayout>
             <ActivityIndicator IsVisible="{Binding Path= IsActivitiIndicatorVisible}" 
                            IsRunning="{Binding Path= IsActivitiIndicatorRunning}" />
             <StackLayout VerticalOptions="FillAndExpand">

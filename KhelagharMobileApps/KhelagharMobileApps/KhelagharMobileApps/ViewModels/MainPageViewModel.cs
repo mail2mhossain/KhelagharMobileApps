@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using KhelagharMobileApps.Core.Interfaces;
 using KhelagharMobileApps.Core.Models;
 using KhelagharMobileApps.Core.Services;
 using Plugin.Connectivity;
@@ -14,13 +15,14 @@ using Xamarin.Forms;
 
 namespace KhelagharMobileApps.ViewModels
 {
-  public class MainPageViewModel : BindableBase, INavigationAware
+  public class MainPageViewModel : ViewModelBase
   {
     private bool _isAcrivityIndicatorVisible = false;
     private bool _isAcrivityIndicatorRunning = false;
     private bool _isAsarCountVisible = false;
     private string _textToSearch = "";
     private IList<string> _searchOptions = new List<string>();
+    private IAuthenticationService _authenticationService { get; }
     private string _selectedOption = String.Empty;
     private ObservableCollection<AsarInfo> _asarList;
     private int _asarCount;
@@ -28,14 +30,21 @@ namespace KhelagharMobileApps.ViewModels
     private readonly INavigationService _navigationService;
     public DelegateCommand SearchCommand { get; set; }
     private DelegateCommand<ItemTappedEventArgs> _goToDetailPage = null;
-    public MainPageViewModel(IKgApiService apiService, INavigationService navigationService)
+    public MainPageViewModel(IKgApiService apiService, INavigationService navigationService, IAuthenticationService authenticationService)
+      : base(navigationService)
     {
       _apiService = apiService;
       _navigationService = navigationService;
+      Title = "Asar Search";
+      _authenticationService = authenticationService;
+      LogoutCommand = new DelegateCommand(OnLogoutCommandExecuted);
       SearchCommand = new DelegateCommand(Search);
 
       SetAsarSearchOption();
     }
+    public DelegateCommand LogoutCommand { get; }
+    public void OnLogoutCommandExecuted() =>
+        _authenticationService.Logout();
     private void SetAsarSearchOption()
     {
       _searchOptions.Add(AsarSearchOptions.SearchByAsar);
@@ -123,15 +132,9 @@ namespace KhelagharMobileApps.ViewModels
       get { return _isAcrivityIndicatorRunning; }
       set { SetProperty(ref _isAcrivityIndicatorRunning, value); }
     }
-    public void OnNavigatedFrom(NavigationParameters parameters)
-    {
-
-    }
-    public void OnNavigatingTo(NavigationParameters parameters)
-    {
-      
-    }
-    public void OnNavigatedTo(NavigationParameters parameters)
+   
+    
+    public override void OnNavigatedTo(NavigationParameters parameters)
     {
       //await Task.Delay(1);
       //IList<AsarInfo> asars = await _apiService.GetAsars(_queryUrl);

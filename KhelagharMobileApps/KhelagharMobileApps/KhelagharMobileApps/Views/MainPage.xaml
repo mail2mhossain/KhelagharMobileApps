@@ -6,6 +6,9 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="KhelagharMobileApps.Views.MainPage"
              Title="কেন্দ্রীয় খেলাঘর আসর">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Logout" Command="{Binding LogoutCommand}" />
+    </ContentPage.ToolbarItems>
     <StackLayout HorizontalOptions="CenterAndExpand">
       <StackLayout Orientation="Horizontal">
         <Label Margin="20,0" Text="আসর খোঁজ" TextColor="#77d065"
@@ -22,7 +25,7 @@
       </StackLayout>
       <ActivityIndicator IsVisible="{Binding Path= IsActivitiIndicatorVisible}" 
                            IsRunning="{Binding Path= IsActivitiIndicatorRunning}" />
-        <Label Margin="20,0" IsVisible="{Binding Path= IsAsarCountVisible}"
+      <Label Margin="20,0" IsVisible="{Binding Path= IsAsarCountVisible}"
              Text="{Binding AsarCount, StringFormat='{0} টি আসর'}"
              />
       <ListView Margin="20,0" ItemsSource="{Binding Path=Asars}"
