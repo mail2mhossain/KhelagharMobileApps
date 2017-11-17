@@ -11,7 +11,7 @@
   <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
   <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
 
-	<application android:label="KhelagharMobileApps.Droid" android:theme="@style/MyTheme" android:icon="@drawable/icon">
+	<application android:label="কেন্দ্রীয় খেলাঘর" android:theme="@style/MyTheme" android:icon="@drawable/icon">
     <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDjgGa9YD-6XlwXh1dekl94yKDxsV4ZxhI" />
     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
   </application>

@@ -112,10 +112,17 @@ namespace KhelagharMobileApps.Core.Models
         return "মোবাইল নং - " + SecretaryMobileNo;
       }
     }
+    public enum TypeOfCommittee
+    {
+      পূর্ণাঙ্গ = 1,
+      আহ্বায়ক = 2,
+      কমিটিবিহীন = 3
+    }
     public string SecretaryName
     {
       get
       {
+        if(CommitteeType == TypeOfCommittee.আহ্বায়ক.ToString()) return "আহ্বায়ক - " + Secretary;
         return "সাধারণ সম্পাদক - " + Secretary ;
       }
     }
