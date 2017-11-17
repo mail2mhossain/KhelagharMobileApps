@@ -76,7 +76,7 @@ namespace KhelagharMobileApps.Core.Services
           {
             var error = await response.Content.ReadAsAsync<KhelagharAppsApiError>();
             var message = error != null ? error.Message : "";
-            throw new KGAppsApiException(message, response.StatusCode);
+            return false;
           }
           if ((int)response.StatusCode == 200)
             return true;
@@ -84,11 +84,13 @@ namespace KhelagharMobileApps.Core.Services
         }
         catch (HttpRequestException ex)
         {
-          throw new KGAppsApiException("", false, ex);
+          //throw new KGAppsApiException("", false, ex);
+          return false;
         }
         catch (UnsupportedMediaTypeException ex)
         {
-          throw new KGAppsApiException("", false, ex);
+          //throw new KGAppsApiException("", false, ex);
+          return false;
         }
       }
     }
