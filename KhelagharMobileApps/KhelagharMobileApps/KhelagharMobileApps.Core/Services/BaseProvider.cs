@@ -84,12 +84,10 @@ namespace KhelagharMobileApps.Core.Services
         }
         catch (HttpRequestException ex)
         {
-          //throw new KGAppsApiException("", false, ex);
           return false;
         }
         catch (UnsupportedMediaTypeException ex)
         {
-          //throw new KGAppsApiException("", false, ex);
           return false;
         }
       }
