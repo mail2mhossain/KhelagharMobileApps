@@ -86,7 +86,7 @@ namespace KhelagharMobileApps.ViewModels
           {
             NavigationParameters param = new NavigationParameters();
             param.Add("show", selected.Item);
-            await _navigationService.NavigateAsync("NavigationPage/DetailPage", param);
+            await _navigationService.NavigateAsync("/MasterPage/NavigationPage/DetailPage", param);
           });
         }
         return _goToDetailPage;
