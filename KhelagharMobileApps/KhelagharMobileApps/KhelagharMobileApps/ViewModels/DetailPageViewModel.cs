@@ -145,7 +145,7 @@ namespace KhelagharMobileApps.ViewModels
     private async void NavigateToMap()
     {
       if(CrossConnectivity.Current.IsConnected && HasGeoLocation)
-        await CrossExternalMaps.Current.NavigateTo("AplombTech", Convert.ToDouble(_selectedAsar.Latitude), Convert.ToDouble(_selectedAsar.Longitude));
+        await CrossExternalMaps.Current.NavigateTo(_selectedAsar.AsarName, Convert.ToDouble(_selectedAsar.Latitude), Convert.ToDouble(_selectedAsar.Longitude));
       else
         await UserDialogs.Instance.AlertAsync("ইনটারনেট সংযোগ নাই। ইন্টারনেট সংযোগ দিন।");
     }
