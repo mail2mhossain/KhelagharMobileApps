@@ -8,7 +8,7 @@ namespace KhelagharMobileApps.Core.Interfaces
 {
   public interface IAuthenticationService
   {
-    bool Login(string username, string password);
+    Task<bool> Login(string username, string password);
 
     void Logout();
   }

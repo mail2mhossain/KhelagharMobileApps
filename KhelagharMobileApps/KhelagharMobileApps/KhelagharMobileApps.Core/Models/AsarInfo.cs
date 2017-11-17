@@ -12,6 +12,7 @@ namespace KhelagharMobileApps.Core.Models
     public string AsarName { get; set; }
     public string CommitteeType { get; set; }
     public string AsarStatus { get; set; }
+    public string Contacts { get; set; }
     public string AddressLine { get; set; }
     public string Subdistrict { get; set; }
     public string District { get; set; }
@@ -39,6 +40,21 @@ namespace KhelagharMobileApps.Core.Models
         if (Latitude == 0 && Longitude == 0)
           return false;
         return true;
+      }
+    }
+    public string ContactDetails
+    {
+      get
+      {
+        if (Contacts != null)
+        {
+          string contactDetails = "যোগাযোগ - " + Contacts.Replace("\r\n", " ");
+          return contactDetails;
+        }
+        else
+        {
+          return "যোগাযোগ - ";
+        }
       }
     }
     public string Address
@@ -72,7 +88,7 @@ namespace KhelagharMobileApps.Core.Models
         {
           address = address + ", বিভাগ-" + Division;
         }
-        return address;
+        return "ঠিকানা - " + address;
       }
     }
     public string DisplayCommitteeType

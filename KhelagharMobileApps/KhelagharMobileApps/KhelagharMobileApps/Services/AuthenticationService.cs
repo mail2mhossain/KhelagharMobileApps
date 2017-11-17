@@ -14,23 +14,18 @@ namespace KhelagharMobileApps.Services
   public class AuthenticationService : IAuthenticationService
   {
     INavigationService _navigationService { get; }
+    private readonly IKgApiService _apiService;
 
-    public AuthenticationService(INavigationService navigationService)
+    public AuthenticationService(INavigationService navigationService, IKgApiService apiService)
     {
       _navigationService = navigationService;
+      _apiService = apiService;
     }
 
-    public bool Login(string username, string password)
+    public async Task<bool> Login(string username, string password)
     {
-      LoginService service = new LoginService();
-      
-      if (service.Login(username, password))
-      {
-        //Settings.Current.UserName = username;
-        return true;
-      }
-
-      return false;
+      string queryUrl = "Login?username=" + username + "&password=" + password;
+      return await _apiService.IsLoggedIn(queryUrl);
     }
 
     public void Logout()

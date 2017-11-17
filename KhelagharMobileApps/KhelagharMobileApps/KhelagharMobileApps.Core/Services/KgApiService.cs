@@ -16,5 +16,9 @@ namespace KhelagharMobileApps.Core.Services
     {
       return await Get<List<AsarInfo>>(name);
     }
+    public async Task<bool> IsLoggedIn(string loginUrl)
+    {
+      return await GetLogin(loginUrl);
+    }
   }
 }

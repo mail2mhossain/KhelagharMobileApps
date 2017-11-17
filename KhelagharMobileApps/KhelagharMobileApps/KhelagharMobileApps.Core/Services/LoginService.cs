@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -12,17 +13,30 @@ namespace KhelagharMobileApps.Core.Services
     private bool isSuccess = false;
     public bool Login(string username, string password)
     {
+      HttpClient client = new HttpClient();
+      isSuccess = false;
       try
       {
         string LoginUrl = ApiUrl.BaseUrl + "Login?username=" + username + "&password=" + password;
-        Task.Run(() => LoadDataAsync(LoginUrl, username, password)).Wait();
+        Task<HttpResponseMessage> getResponse = client.GetAsync(LoginUrl);
+        HttpResponseMessage response = getResponse.Result;
+
+        if (response != null)
+        {
+          if ((int)response.StatusCode == 200)
+          {
+            isSuccess = true;
+          }
+        }
+        //Task.Run(() => LoadDataAsync(LoginUrl, username, password)).Wait();
       }
       catch (Exception ex)
       {
-
+        isSuccess = false;
       }
       return isSuccess;
     }
+    
     private void LoadDataAsync(string uri, string authenticationUserName, string authenticationUserPassword)
     {
       if (!isSuccess)

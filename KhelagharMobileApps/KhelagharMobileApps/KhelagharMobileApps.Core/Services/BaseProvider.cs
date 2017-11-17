@@ -65,5 +65,32 @@ namespace KhelagharMobileApps.Core.Services
         }
       }
     }
+    protected async Task<bool> GetLogin(string url)
+    {
+      using (HttpClient client = GetClient())
+      {
+        try
+        {
+          var response = await client.GetAsync(url);
+          if (!response.IsSuccessStatusCode)
+          {
+            var error = await response.Content.ReadAsAsync<KhelagharAppsApiError>();
+            var message = error != null ? error.Message : "";
+            throw new KGAppsApiException(message, response.StatusCode);
+          }
+          if ((int)response.StatusCode == 200)
+            return true;
+          return false;
+        }
+        catch (HttpRequestException ex)
+        {
+          throw new KGAppsApiException("", false, ex);
+        }
+        catch (UnsupportedMediaTypeException ex)
+        {
+          throw new KGAppsApiException("", false, ex);
+        }
+      }
+    }
   }
 }

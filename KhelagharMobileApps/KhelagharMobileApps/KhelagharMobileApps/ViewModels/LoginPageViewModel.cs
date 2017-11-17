@@ -30,12 +30,12 @@ namespace KhelagharMobileApps.ViewModels
           .ObservesProperty(() => UserName)
           .ObservesProperty(() => Password);
     }
-    public bool IsActivitiIndicatorVisible
+    public bool IsLoginActivitiIndicatorVisible
     {
       get { return _isAcrivityIndicatorVisible; }
       set { SetProperty(ref _isAcrivityIndicatorVisible, value); }
     }
-    public bool IsActivitiIndicatorRunning
+    public bool IsLoginActivitiIndicatorRunning
     {
       get { return _isAcrivityIndicatorRunning; }
       set { SetProperty(ref _isAcrivityIndicatorRunning, value); }
@@ -65,9 +65,11 @@ namespace KhelagharMobileApps.ViewModels
         IsBusy = false;
         return;
       }
-      this.IsActivitiIndicatorVisible = true;
-      this.IsActivitiIndicatorRunning = true;
-      if (_authenticationService.Login(UserName, Password))
+      this.IsLoginActivitiIndicatorVisible = true;
+      this.IsLoginActivitiIndicatorRunning = true;
+
+      bool isLoggedIn = await _authenticationService.Login(UserName, Password);
+      if (isLoggedIn)
       {
         //NavigationParameters param = new NavigationParameters();
         //param.Add("message", "Glad you read the code");
@@ -81,8 +83,8 @@ namespace KhelagharMobileApps.ViewModels
         await _pageDialogService.DisplayAlertAsync("Logon Error", "User Name or Password is wrong", "Try Again");
       }
       IsBusy = false;
-      this.IsActivitiIndicatorVisible = false;
-      this.IsActivitiIndicatorRunning = false;
+      this.IsLoginActivitiIndicatorVisible = false;
+      this.IsLoginActivitiIndicatorRunning = false;
     }
 
     private bool LoginCommandCanExecute() =>
