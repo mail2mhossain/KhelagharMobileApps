@@ -7,7 +7,9 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="KhelagharMobileApps.Views.DetailPage"
              Title="{Binding Path=SelectedAsar.AsarName}">
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="icon.png" Order="Primary" Priority="0" />
+    </ContentPage.ToolbarItems>
     <StackLayout Spacing = "0" Orientation="Vertical">
         <Grid x:Name="controlGrid" HorizontalOptions="FillAndExpand" VerticalOptions="Start" RowSpacing="5" ColumnSpacing="5">
             <Grid.RowDefinitions>

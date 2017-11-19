@@ -4,7 +4,6 @@
                   xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
                   prism:ViewModelLocator.AutowireViewModel="True"
                   x:Class="KhelagharMobileApps.Views.MasterPage">
-
     <MasterDetailPage.Master>
         <NavigationPage Title="Khelaghar" Icon="hamburger.png">
             <x:Arguments>
