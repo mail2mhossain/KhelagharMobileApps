@@ -7,7 +7,8 @@
              x:Class="KhelagharMobileApps.Views.MainPage"
              Title="কেন্দ্রীয় খেলাঘর আসর">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Logout" Command="{Binding LogoutCommand}" />
+        <ToolbarItem Icon="icon.png" Order="Primary" Priority="0" />
+        <ToolbarItem Text="Logout" Command="{Binding LogoutCommand}" Order="Primary" Priority="1"/>
     </ContentPage.ToolbarItems>
     <StackLayout HorizontalOptions="CenterAndExpand">
       <StackLayout Orientation="Horizontal">
