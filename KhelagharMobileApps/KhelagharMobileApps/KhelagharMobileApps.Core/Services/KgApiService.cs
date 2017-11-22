@@ -12,9 +12,13 @@ namespace KhelagharMobileApps.Core.Services
     public KgApiService()
     {
     }
-    public async Task<List<AsarInfo>> GetAsars(string name)
+    public async Task<List<AsarInfo>> GetAsars(string queryUrl)
     {
-      return await Get<List<AsarInfo>>(name);
+      return await Get<List<AsarInfo>>(queryUrl);
+    }
+    public async Task<List<UpojelaInfo>> GetSubdistricts(string queryUrl)
+    {
+      return await Get<List<UpojelaInfo>>(queryUrl);
     }
     public async Task<bool> IsLoggedIn(string loginUrl)
     {

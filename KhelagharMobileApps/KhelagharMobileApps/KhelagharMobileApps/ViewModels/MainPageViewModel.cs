@@ -66,10 +66,11 @@ namespace KhelagharMobileApps.ViewModels
         await UserDialogs.Instance.AlertAsync("কিছু টাইপ করুন।");
         return;
       }
+      //IList<UpojelaInfo> upojelas = await _apiService.GetSubdistricts("AllUpojela");
       IsAsarCountVisible = false;
       this.IsActivitiIndicatorVisible = true;
       this.IsActivitiIndicatorRunning = true;
-      IList<AsarInfo> asars = await _apiService.GetAsars(queryUrl + _textToSearch); //_textToSearch   "আনন্দ"
+      IList<AsarInfo> asars = await _apiService.GetAsars(queryUrl + _textToSearch); 
       Asars = new ObservableCollection<AsarInfo>(asars);
       AsarCount = asars.Count;
       IsAsarCountVisible = true;
@@ -86,8 +87,8 @@ namespace KhelagharMobileApps.ViewModels
           {
             NavigationParameters param = new NavigationParameters();
             param.Add("show", selected.Item);
-            //await _navigationService.NavigateAsync("MasterPage/DetailPage", param);
-            await _navigationService.NavigateAsync("/MasterPage/NavigationPage/MainPage/DetailPage", param);
+            await _navigationService.NavigateAsync("MasterPage/DetailPage", param);
+            //await _navigationService.NavigateAsync("/MasterPage/NavigationPage/MainPage/DetailPage", param);
           });
         }
         return _goToDetailPage;
