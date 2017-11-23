@@ -14,7 +14,7 @@ namespace KhelagharMobileApps.Core.Services
     public static List<MenuItem> GetMenuList()
     {
       var menuList = new List<MenuItem>();
-
+      menuList.Add(new MenuItem() { Title = "New Asar", Description = "New Asar Entry View", Url = "NavigationPage/MainPage/NewAsar", IslogOut = false });
       menuList.Add(new MenuItem() { Title = "Asar Search", Description = "Asar Search View", Url = "NavigationPage/MainPage",IslogOut=false });
       menuList.Add(new MenuItem() { Title = "Logout", Description = "Logout Action", Url = "/Login", IslogOut = true });
       return menuList;

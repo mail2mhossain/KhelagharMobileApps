@@ -17,7 +17,7 @@ using Xamarin.Forms.Maps;
 
 namespace KhelagharMobileApps.ViewModels
 {
-  public class DetailPageViewModel : BindableBase, INavigationAware
+  public class DetailPageViewModel : ViewModelBase, INavigationAware
   {
     private AsarInfo _selectedAsar;
     private Plugin.Geolocator.Abstractions.Position _position = null;
@@ -32,7 +32,8 @@ namespace KhelagharMobileApps.ViewModels
     public DelegateCommand NavigateTo { get; set; }
     public DelegateCommand UpdateLocationCommand { get; set; }
 
-    public DetailPageViewModel()
+    public DetailPageViewModel(INavigationService navigationService)
+      : base(navigationService)
     {
       CallCommand = new DelegateCommand(MakeACall);
       NavigateTo = new DelegateCommand(NavigateToMap);
@@ -149,10 +150,10 @@ namespace KhelagharMobileApps.ViewModels
       else
         await UserDialogs.Instance.AlertAsync("ইনটারনেট সংযোগ নাই। ইন্টারনেট সংযোগ দিন।");
     }
-    public void OnNavigatedFrom(NavigationParameters parameters)
+    public override void OnNavigatedFrom(NavigationParameters parameters)
     {
     }
-    public void OnNavigatedTo(NavigationParameters parameters)
+    public override void OnNavigatedTo(NavigationParameters parameters)
     {
       SelectedAsar = parameters["show"] as AsarInfo;
       GeoLocation = _selectedAsar.GeoLocation;
@@ -163,7 +164,7 @@ namespace KhelagharMobileApps.ViewModels
         UpdateMap(Convert.ToDouble(_selectedAsar.Latitude), Convert.ToDouble(_selectedAsar.Longitude));
       }
     }
-    public async void OnNavigatingTo(NavigationParameters parameters)
+    public async override void OnNavigatingTo(NavigationParameters parameters)
     {
       if (CrossConnectivity.Current.IsConnected)
       {

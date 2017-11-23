@@ -30,6 +30,7 @@ namespace KhelagharMobileApps
 
       Container.Register<IKgApiService, KgApiService>();
       Container.Register<IAuthenticationService, AuthenticationService>(Reuse.Singleton);
+      Container.RegisterTypeForNavigation<NewAsar>();
     }
   }
 }

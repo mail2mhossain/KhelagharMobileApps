@@ -66,7 +66,7 @@ namespace KhelagharMobileApps.ViewModels
         await UserDialogs.Instance.AlertAsync("কিছু টাইপ করুন।");
         return;
       }
-      //IList<UpojelaInfo> upojelas = await _apiService.GetSubdistricts("AllUpojela");
+      
       IsAsarCountVisible = false;
       this.IsActivitiIndicatorVisible = true;
       this.IsActivitiIndicatorRunning = true;

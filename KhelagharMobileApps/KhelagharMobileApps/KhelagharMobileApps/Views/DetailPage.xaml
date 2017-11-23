@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:KhelagharMobileApps.CustomControls" 
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="KhelagharMobileApps.Views.DetailPage"
-             Title="{Binding Path=SelectedAsar.AsarName}">
+             Title="কেন্দ্রীয় খেলাঘর আসর">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="icon.png" Order="Primary" Priority="0" />
     </ContentPage.ToolbarItems>
