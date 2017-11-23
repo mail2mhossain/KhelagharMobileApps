@@ -15,7 +15,7 @@ namespace KhelagharMobileApps.ViewModels
   public class NewAsarViewModel : ViewModelBase
   {
     private IList<UpojelaInfo> _upojelaList;
-    private string _upojelaToSearch = "";
+    private string _upojelaToSearch = String.Empty;
     private ObservableCollection<UpojelaInfo> _upojelas;
     private UpojelaInfo _upojela = null;
     private bool _isUpojelaListVisible = false;
@@ -28,7 +28,8 @@ namespace KhelagharMobileApps.ViewModels
       Title = "New Asar";
       _apiService = apiService;
       _navigationService = navigationService;
-      IsUpojelaListVisible = true;
+      _upojelaList = new List<UpojelaInfo>();
+      _upojelas = new ObservableCollection<UpojelaInfo>(_upojelaList);
     }
     public string UpojelaToSearch
     {
