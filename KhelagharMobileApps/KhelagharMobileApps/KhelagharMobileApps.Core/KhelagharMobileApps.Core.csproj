@@ -43,6 +43,7 @@
     <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Models\AsarInfo.cs" />
     <Compile Include="Models\AsarSearchOptions.cs" />
+    <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\UpojelaInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseProvider.cs" />

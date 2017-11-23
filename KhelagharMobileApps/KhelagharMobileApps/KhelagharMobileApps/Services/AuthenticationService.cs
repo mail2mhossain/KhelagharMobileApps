@@ -28,10 +28,10 @@ namespace KhelagharMobileApps.Services
       return await _apiService.IsLoggedIn(queryUrl);
     }
 
-    public void Logout()
+    public async void Logout()
     {
       //Settings.Current.UserName = string.Empty;
-      _navigationService.NavigateAsync("/Login");
+      await _navigationService.NavigateAsync("/Login");
     }
   }
 }

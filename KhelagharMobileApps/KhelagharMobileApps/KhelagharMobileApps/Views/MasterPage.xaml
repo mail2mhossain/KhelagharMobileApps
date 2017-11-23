@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:behaviors="clr-namespace:Corcav.Behaviors;assembly=Corcav.Behaviors"
                   xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
                   prism:ViewModelLocator.AutowireViewModel="True"
                   x:Class="KhelagharMobileApps.Views.MasterPage">
@@ -8,10 +9,24 @@
         <NavigationPage Title="Khelaghar" Icon="hamburger.png">
             <x:Arguments>
                 <ContentPage Title="Menu">
-                    <StackLayout Padding="40">
-                        <Label Text="{Binding UserName,StringFormat='Hello, {0}'}" />
-                        <Button Margin="10.0" Text="Asar Search" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/MainPage" />
-                        <Button Margin="10.0" Text="Logout" Command="{Binding NavigateCommand}" CommandParameter="/Login" />
+                    <StackLayout Padding="10">
+                        <ListView Margin="5,5" ItemsSource="{Binding Path=MenuList}"
+                                  CachingStrategy="RecycleElement" RowHeight="40">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Spacing = "0" Margin="4">
+                                            <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <behaviors:Interaction.Behaviors>
+                                <behaviors:BehaviorCollection>
+                                    <behaviors:EventToCommand EventName="ItemTapped" Command="{Binding NavigateTo}" PassEventArgument="True" />
+                                </behaviors:BehaviorCollection>
+                            </behaviors:Interaction.Behaviors>
+                        </ListView>
                     </StackLayout>
                 </ContentPage>
             </x:Arguments>

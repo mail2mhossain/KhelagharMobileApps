@@ -11,27 +11,13 @@ namespace KhelagharMobileApps.Core.Services
 {
   public class DataService
   {
-    private static string _baseUrl = "http://appsapi.khelaghar.net/";
-    public static IList<AsarInfo> GetDataFromService(string queryString)
+    public static List<MenuItem> GetMenuList()
     {
-      HttpClient client = new HttpClient();
-      List<AsarInfo> data = new List<AsarInfo>();
-      try
-      {
-        Task<HttpResponseMessage> getResponse = client.GetAsync(_baseUrl + queryString);
-        HttpResponseMessage response = getResponse.Result;
+      var menuList = new List<MenuItem>();
 
-        if (response != null)
-        {
-          string json = response.Content.ReadAsStringAsync().Result;
-          data = JsonConvert.DeserializeObject<List<AsarInfo>>(json);
-        }
-      }
-      catch (Exception ex)
-      {
-        string errorMessage = ex.ToString();
-      }
-      return data;
+      menuList.Add(new MenuItem() { Title = "Asar Search", Description = "Asar Search View", Url = "NavigationPage/MainPage",IslogOut=false });
+      menuList.Add(new MenuItem() { Title = "Logout", Description = "Logout Action", Url = "/Login", IslogOut = true });
+      return menuList;
     }
   }
 }

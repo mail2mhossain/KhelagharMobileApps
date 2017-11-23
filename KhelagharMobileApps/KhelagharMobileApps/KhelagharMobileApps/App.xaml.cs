@@ -16,6 +16,7 @@ namespace KhelagharMobileApps
     {
       InitializeComponent();
 
+      //NavigationService.NavigateAsync("/MasterPage/NavigationPage/MainPage");
       NavigationService.NavigateAsync("NavigationPage/Login");
     }
 
