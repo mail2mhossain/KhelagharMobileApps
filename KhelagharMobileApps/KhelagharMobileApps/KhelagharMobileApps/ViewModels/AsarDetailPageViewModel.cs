@@ -3,7 +3,6 @@ using KhelagharMobileApps.Core.Models;
 using KhelagharMobileApps.Core.Services;
 using Plugin.Connectivity;
 using Plugin.ExternalMaps;
-using Plugin.Geolocator.Abstractions;
 using Plugin.Messaging;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -12,12 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms.Maps;
 
 namespace KhelagharMobileApps.ViewModels
 {
-  public class DetailPageViewModel : ViewModelBase
+  public class AsarDetailPageViewModel : ViewModelBase
   {
     private AsarInfo _selectedAsar;
     private Plugin.Geolocator.Abstractions.Position _position = null;
@@ -32,7 +30,7 @@ namespace KhelagharMobileApps.ViewModels
     public DelegateCommand NavigateTo { get; set; }
     public DelegateCommand UpdateLocationCommand { get; set; }
 
-    public DetailPageViewModel(INavigationService navigationService)
+    public AsarDetailPageViewModel(INavigationService navigationService)
       : base(navigationService)
     {
       CallCommand = new DelegateCommand(MakeACall);
@@ -53,7 +51,7 @@ namespace KhelagharMobileApps.ViewModels
     public AsarInfo SelectedAsar
     {
       get { return _selectedAsar; }
-      set { SetProperty(ref _selectedAsar, value);}
+      set { SetProperty(ref _selectedAsar, value); }
     }
     public string GeoLocation
     {
@@ -70,7 +68,7 @@ namespace KhelagharMobileApps.ViewModels
     }
     public bool CanNavigate
     {
-      get { return _canNavigate;}
+      get { return _canNavigate; }
       set { SetProperty(ref _canNavigate, value); }
     }
     private bool SetNavigationBool()
@@ -92,10 +90,10 @@ namespace KhelagharMobileApps.ViewModels
       {
         _selectedAsar.Latitude = Convert.ToDecimal(_position.Latitude);
         _selectedAsar.Longitude = Convert.ToDecimal(_position.Longitude);
-        
+
         GeoLocationUpdateService service = new GeoLocationUpdateService();
         await service.UpdateGeoLocation(_selectedAsar.AsarId, _selectedAsar.Latitude, _selectedAsar.Longitude);
-        if(service.IsSuccess)
+        if (service.IsSuccess)
         {
           GeoLocation = _selectedAsar.GeoLocation;
           HasGeoLocation = _selectedAsar.HasGeoLocation;
@@ -145,7 +143,7 @@ namespace KhelagharMobileApps.ViewModels
     }
     private async void NavigateToMap()
     {
-      if(CrossConnectivity.Current.IsConnected && HasGeoLocation)
+      if (CrossConnectivity.Current.IsConnected && HasGeoLocation)
         await CrossExternalMaps.Current.NavigateTo(_selectedAsar.AsarName, Convert.ToDouble(_selectedAsar.Latitude), Convert.ToDouble(_selectedAsar.Longitude));
       else
         await UserDialogs.Instance.AlertAsync("ইনটারনেট সংযোগ নাই। ইন্টারনেট সংযোগ দিন।");
