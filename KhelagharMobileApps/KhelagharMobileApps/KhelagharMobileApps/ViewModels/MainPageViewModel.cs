@@ -24,7 +24,7 @@ namespace KhelagharMobileApps.ViewModels
     private IList<string> _searchOptions = new List<string>();
     private IAuthenticationService _authenticationService { get; }
     private string _selectedOption = String.Empty;
-    private ObservableCollection<AsarInfo> _asarList;
+    private ObservableCollection<AsarDetailInfo> _asarList;
     private int _asarCount;
     private readonly IKgApiService _apiService;
     private readonly INavigationService _navigationService;
@@ -70,8 +70,8 @@ namespace KhelagharMobileApps.ViewModels
       IsAsarCountVisible = false;
       this.IsActivitiIndicatorVisible = true;
       this.IsActivitiIndicatorRunning = true;
-      IList<AsarInfo> asars = await _apiService.GetAsars(queryUrl + _textToSearch); 
-      Asars = new ObservableCollection<AsarInfo>(asars);
+      IList<AsarDetailInfo> asars = await _apiService.GetAsarDetailInfo(queryUrl + _textToSearch); 
+      Asars = new ObservableCollection<AsarDetailInfo>(asars);
       AsarCount = asars.Count;
       IsAsarCountVisible = true;
       this.IsActivitiIndicatorVisible = false;
@@ -108,7 +108,7 @@ namespace KhelagharMobileApps.ViewModels
       get { return _textToSearch; }
       set { SetProperty(ref _textToSearch, value); }
     }
-    public ObservableCollection<AsarInfo> Asars
+    public ObservableCollection<AsarDetailInfo> Asars
     {
       get { return _asarList; }
       set { SetProperty(ref _asarList, value); }

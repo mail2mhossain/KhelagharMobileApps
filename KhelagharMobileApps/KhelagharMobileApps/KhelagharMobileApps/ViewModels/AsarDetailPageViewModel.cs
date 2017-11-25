@@ -17,7 +17,7 @@ namespace KhelagharMobileApps.ViewModels
 {
   public class AsarDetailPageViewModel : ViewModelBase
   {
-    private AsarInfo _selectedAsar;
+    private AsarDetailInfo _selectedAsar;
     private Plugin.Geolocator.Abstractions.Position _position = null;
     private string _geoLocation = String.Empty;
     private bool _hasGeoLocation = false;
@@ -48,7 +48,7 @@ namespace KhelagharMobileApps.ViewModels
       get { return _pinCollection; }
       set { SetProperty(ref _pinCollection, value); }
     }
-    public AsarInfo SelectedAsar
+    public AsarDetailInfo SelectedAsar
     {
       get { return _selectedAsar; }
       set { SetProperty(ref _selectedAsar, value); }
@@ -153,7 +153,7 @@ namespace KhelagharMobileApps.ViewModels
     }
     public override void OnNavigatedTo(NavigationParameters parameters)
     {
-      SelectedAsar = parameters["show"] as AsarInfo;
+      SelectedAsar = parameters["show"] as AsarDetailInfo;
       GeoLocation = _selectedAsar.GeoLocation;
       HasGeoLocation = _selectedAsar.HasGeoLocation;
       CanNavigate = SetNavigationBool();

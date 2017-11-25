@@ -26,9 +26,9 @@ namespace KhelagharMobileApps
       Container.RegisterTypeForNavigation<MasterPage>();
       Container.RegisterTypeForNavigation<MainPage>();
       Container.RegisterTypeForNavigation<LoginPage>("Login");
-      Container.RegisterTypeForNavigation<DetailPage>();
       Container.RegisterTypeForNavigation<NewAsar>();
       Container.RegisterTypeForNavigation<AsarDetailPage>();
+      Container.RegisterTypeForNavigation<WorkersPage>();
 
       Container.Register<IKgApiService, KgApiService>();
       Container.Register<IAuthenticationService, AuthenticationService>(Reuse.Singleton);
